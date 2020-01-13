@@ -7,6 +7,9 @@
 ![]()
 
 ## Optimizer Users
+* 编译环境
+`Compiler Name: TDM-GCC 4.9.2 64-bit Release`
+
 * 优化器使用方法
     * 例程参考[main.cpp](https://github.com/TANGBEN7/PSO-Optimizer/blob/master/optimizer_main.cpp)文件
     * 优化器使用说明，参考[头文件](https://github.com/TANGBEN7/PSO-Optimizer/blob/master/optimizer.h)头部注释
