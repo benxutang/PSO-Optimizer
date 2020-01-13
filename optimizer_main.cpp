@@ -4,7 +4,13 @@
 #include "opt1.h"
 #include "Matrix.h" 
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+/* 
+** Copyright (c) @TANGBEN7
+**
+** run this program using the console pauser or add your own getch, system("pause") or input loop
+** use funtion "f1" or "test_f" to do your costomlized changes
+*/
+
 void generate_data(double *x, double *y)
 {
 
