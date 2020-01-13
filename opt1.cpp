@@ -16,15 +16,31 @@ double opt1::setOptimizer(double (*foo)(double* , double* ),
 	
 	intitalize();
 	
-	for(int i=0; i<D; i++)
+	for(int _iterations=0; _iterations<D; _iterations++)
 	{
-		update(i);
+		update(_iterations);
 	}
-	cout<< Fun_fitness(_g_best, y)<<endl;
+	
+	Display_g_best();
+
+	cout<<endl<<"======Fitness======"<<endl<<Fun_fitness(_g_best, y)<<endl;
 }
 
 void opt1::intitalize()
 {
+	//输入x的取值范围
+	double *_x_constrain_max = new double [xd];
+	double *_x_constrain_min = new double [xd];
+	
+	cout<<"Intitalizing constrains: "<<endl;
+	for (int i=0; i<xd; i++)
+	{
+		cout<<endl<<"x dimension: "<<i+1<<endl<<"_POS_MAX: ";
+		cin>>_x_constrain_max[i];
+		cout<<"_POS_MIN: ";
+		cin>>_x_constrain_min[i];
+	}
+	 
 	srand((int)time(0));
 	
 	//intitalize elements 
@@ -37,18 +53,13 @@ void opt1::intitalize()
 		element[i]._POS_MIN = new double [xd];
 		
 		/* start intitalizing constrains */
-		element[i]._POS_MAX[0] = 0.1;
-		element[i]._POS_MIN[0] = -0.1;
-		element[i]._POS_MAX[1] = 0.1;
-		element[i]._POS_MIN[1] = -0.1;
-		element[i]._POS_MAX[2] = 0.2;
-		element[i]._POS_MIN[2] = 0.1;
-		element[i]._POS_MAX[3] = 1;
-		element[i]._POS_MIN[3] = -1;
-		element[i]._POS_MAX[4] = 1;
-		element[i]._POS_MIN[4] = -1;
-		element[i]._POS_MAX[5] = 1;
-		element[i]._POS_MIN[5] = -1;		
+		for(int j=0; j<xd; j++)
+		{
+			element[i]._POS_MAX[j] = _x_constrain_max[j];
+			element[i]._POS_MIN[j] = _x_constrain_min[j];
+		} 
+		
+		element[i]._SPD_MAX = V_MAX;		
 		/* constrains intitalized */
 		
 		for(int j=0; j<xd; j++)
@@ -68,9 +79,8 @@ void opt1::intitalize()
 	_g_best = new double [xd];
 	//cout<<"here"<<endl;
 	Generate_g_best();
-	_g_bestValue = Fun_fitness(_g_best, y);
-	
-	/* display 
+	//_g_bestValue = Fun_fitness(_g_best, y);
+	/*
 	for(int i=0; i<N; i++)
 	{
 		for(int j=0; j<xd; j++)
@@ -83,7 +93,9 @@ void opt1::intitalize()
 	for(int j=0; j<xd; j++)
 	{
 		cout<<_g_best[j]<<endl;
-	}*/
+	}
+	_g_bestValue = Fun_fitness(element[0].pos, y);
+	cout<<_g_bestValue<<endl;*/
 }
 
 void opt1::update(int iterations)
@@ -131,9 +143,10 @@ void opt1::_spd_SetRandom(double* buf, int dim, double constrain)
 
 void opt1::_pos_SetRandom(double* buf, int dim, const double *c_max, const double *c_min)
 {
-	/*** do some convertion here ***
-		将c_max和c_min的值加倍，同时转化为整型 
-		这样之后才能设置随机数   */
+	/*************************************
+	将c_max和c_min的值加倍，同时转化为整型 
+	这样之后才能设置随机数   
+	**************************************/
 	int *_int_c_max;
 	int *_int_c_min;
 	
@@ -159,8 +172,8 @@ double opt1::Fun_fitness(double* x, double* y)
 
 void opt1::Generate_g_best()
 {
-	double _g_bestValue = Fun_fitness(element[0].pos, y);
-	cout<<_g_bestValue<<endl;
+	_g_bestValue = Fun_fitness(element[0].pos, y);
+	//cout<<_g_bestValue<<endl;
 	int _posof_gbest = 0; 
 	
 	for(int i=1; i<N; i++)
@@ -210,4 +223,13 @@ double opt1::randval(double max, double min)
 	int _int_min = min*1000;
 	
 	return (0.001*(rand()% (_int_max-_int_min+1)+_int_min));
+}
+
+void opt1::Display_g_best()
+{
+	cout<<endl<<"======Optimal solution======"<<endl;
+	for(int i=0; i<xd; i++)
+	{
+		cout<<_g_best[i]<<endl;
+	}
 }

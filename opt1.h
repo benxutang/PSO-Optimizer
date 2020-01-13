@@ -3,8 +3,8 @@
 
 #include "optimizer.h" 
 
-#define N 20
-#define D 1500
+#define N 500
+#define D 700
 #define T 100
 #define W_int 0.9
 #define W_end 0.4
@@ -19,7 +19,7 @@ struct Element{
 	double *spd;
 	double *_POS_MAX;
 	double *_POS_MIN;
-	double _SPD_MAX = V_MAX;
+	double _SPD_MAX;
 	double *pBest;
 	double _p_bestValue;
 }; 
@@ -60,6 +60,8 @@ private:
 	void Generate_p_best();
 	
 	double randval(double max, double min);
+	
+	void Display_g_best();
 };
 
 #endif //_OPT_1_H_
