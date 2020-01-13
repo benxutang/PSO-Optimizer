@@ -21,7 +21,7 @@
 
 ## Updates
 
-`V2.0.1`
-实现用户自定义的参数输入 
-`V2.0.2` 
-Applied Google coding style
+   * `V2.0.1`
+   实现用户自定义的参数输入 
+   * `V2.0.2` 
+   Applied Google coding style
